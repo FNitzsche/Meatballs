@@ -23,8 +23,8 @@ import java.util.stream.Stream;
 
 public class AppLaunch extends Application {
 
-    public static final int resX = 750;
-    public static final int resY = 750;
+    public static final int resX = 800;
+    public static final int resY = 800;
 
     Canvas canvas = new Canvas(resX, resY);
 
