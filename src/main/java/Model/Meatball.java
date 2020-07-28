@@ -14,7 +14,11 @@ public class Meatball {
     public Meatball(float x, float y, float strength){
         this.x = x;
         this.y = y;
-        this.strength = strength;
+        if (strength != 0) {
+            this.strength = Math.min(1/strength, 2);
+        } else {
+            this.strength = 2;
+        }
     }
 
     public float tryInside(float px, float py){

@@ -36,28 +36,31 @@ public class ValueKernel extends Kernel {
         float dy = 0;
         for (int i = 0; i < countB; i++) {
             float factor = 1;
-            float distS = (float)(Math.pow(balls[i*3]-x, 2) + Math.pow(balls[i*3+1]-y, 2));
+            float strengthPos = Math.max(balls[i*3+2], balls[i*3+2]*(-1));
+            float strengthSig = (balls[i*3+2]/Math.max(balls[i*3+2], balls[i*3+2]*(-1)));
+            float distS = (float)((Math.pow(balls[i*3]-x, 2) + Math.pow(balls[i*3+1]-y, 2)))*strengthPos;
             if (distS > 1){
                 factor = 0;
             }
-            v += Math.pow(1 - Math.min(1, distS), 2)*balls[i*3+2]*factor;
-            dx += (float)(4 *balls[i*3+2]* (balls[i*3] - x) * (-Math.pow((balls[i*3] - x), 2) -Math.pow(balls[i*3+1] - y, 2) + 1))*factor;
-            dy += (float)(4 *balls[i*3+2]* (balls[i*3+1] - y) * (-Math.pow((balls[i*3+1] - y), 2) -Math.pow(balls[i*3] - x, 2) + 1))*factor;
+            v += (Math.pow(distS, 2)-2*distS +1)*factor*strengthSig;
+            dx += (float)(4 * strengthPos * (balls[i*3] - x) * (-strengthPos *(Math.pow((balls[i*3] - x), 2) +Math.pow(balls[i*3+1] - y, 2) )+ 1))*factor*strengthSig;
+            dy += (float)(4 * strengthPos *(balls[i*3+1] - y) * (-strengthPos *(Math.pow((balls[i*3+1] - y), 2) +Math.pow(balls[i*3] - x, 2)) + 1))*factor*strengthSig;
         }
-        float steep = 1-(float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
-        steep = Math.max(0, Math.min(1, steep));
+        float steepO = 1-(float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
+        float steep = Math.max(0, Math.min(1, steepO));
+        float steepI = 1;//Math.max(0, Math.min(1, 1/Math.max(steepO, -steepO)));
         if (v > 0.01){
-            values[gid*3] = 1;
+            values[gid*3] = steepI;
             values[gid*3+1] = steep;
-            values[gid*3+2] = 1;
+            values[gid*3+2] = steepI;
         } else if (v < -0.01){
             values[gid*3] = steep;
-            values[gid*3+1] = 1;
+            values[gid*3+1] =  steepI;
             values[gid*3+2] = steep;
         } else {
-            values[gid*3] = 1;
-            values[gid*3+1] = 1;
-            values[gid*3+2] = 1;
+            values[gid*3] = steepI;
+            values[gid*3+1] = steepI;
+            values[gid*3+2] = steepI;
         }
         //values[gid*3] = Math.max(0, Math.min(1, v));
         //values[gid*3+1] = Math.max(0, Math.min(1, -v));
