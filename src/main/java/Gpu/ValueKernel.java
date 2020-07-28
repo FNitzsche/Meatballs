@@ -37,7 +37,7 @@ public class ValueKernel extends Kernel {
         for (int i = 0; i < countB; i++) {
             float factor = 1;
             float strengthPos = Math.max(balls[i*3+2], balls[i*3+2]*(-1));
-            float strengthSig = (balls[i*3+2]/Math.max(balls[i*3+2], balls[i*3+2]*(-1)));
+            float strengthSig = Math.signum(balls[i*3+2]);//(balls[i*3+2]/Math.max(balls[i*3+2], balls[i*3+2]*(-1)));
             float distS = (float)((Math.pow(balls[i*3]-x, 2) + Math.pow(balls[i*3+1]-y, 2)))*strengthPos;
             if (distS > 1){
                 factor = 0;
