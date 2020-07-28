@@ -46,9 +46,9 @@ public class ValueKernel extends Kernel {
             dx += (float)(4 * strengthPos * (balls[i*3] - x) * (-strengthPos *(Math.pow((balls[i*3] - x), 2) +Math.pow(balls[i*3+1] - y, 2) )+ 1))*factor*strengthSig;
             dy += (float)(4 * strengthPos *(balls[i*3+1] - y) * (-strengthPos *(Math.pow((balls[i*3+1] - y), 2) +Math.pow(balls[i*3] - x, 2)) + 1))*factor*strengthSig;
         }
-        float steepO = 1-(float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
-        float steep = Math.max(0, Math.min(1, steepO));
-        float steepI = 1;//Math.max(0, Math.min(1, 1/Math.max(steepO, -steepO)));
+        float steepO = (float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
+        float steep = Math.max(0, Math.min(1, 1-steepO));
+        float steepI = Math.max(0, Math.min(1, 1-0.1f*Math.max(steepO, -steepO)));
         if (v > 0.01){
             values[gid*3] = steepI;
             values[gid*3+1] = steep;
@@ -58,9 +58,9 @@ public class ValueKernel extends Kernel {
             values[gid*3+1] =  steepI;
             values[gid*3+2] = steep;
         } else {
-            values[gid*3] = steepI;
-            values[gid*3+1] = steepI;
-            values[gid*3+2] = steepI;
+            values[gid*3] = 1;
+            values[gid*3+1] = 1;
+            values[gid*3+2] = 1;
         }
         //values[gid*3] = Math.max(0, Math.min(1, v));
         //values[gid*3+1] = Math.max(0, Math.min(1, -v));
