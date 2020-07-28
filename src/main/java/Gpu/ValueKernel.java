@@ -41,8 +41,8 @@ public class ValueKernel extends Kernel {
                 factor = 0;
             }
             v += Math.pow(1 - Math.min(1, distS), 2)*balls[i*3+2]*factor;
-            dx += (float)(4 * (balls[i*3] - x) * (-Math.pow((balls[i*3] - x), 2) -Math.pow(balls[i*3+1] - y, 2) + 1))*factor*balls[i*3+2];
-            dy += (float)(4* (balls[i*3+1] - y) * (-Math.pow((balls[i*3+1] - y), 2) -Math.pow(balls[i*3] - x, 2) + 1))*factor*balls[i*3+2];
+            dx += (float)(4 *balls[i*3+2]* (balls[i*3] - x) * (-Math.pow((balls[i*3] - x), 2) -Math.pow(balls[i*3+1] - y, 2) + 1))*factor;
+            dy += (float)(4 *balls[i*3+2]* (balls[i*3+1] - y) * (-Math.pow((balls[i*3+1] - y), 2) -Math.pow(balls[i*3] - x, 2) + 1))*factor;
         }
         float steep = 1-(float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
         steep = Math.max(0, Math.min(1, steep));
