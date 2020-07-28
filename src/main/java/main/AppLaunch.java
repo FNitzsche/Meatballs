@@ -23,8 +23,8 @@ import java.util.stream.Stream;
 
 public class AppLaunch extends Application {
 
-    public static final int resX = 700;
-    public static final int resY = 700;
+    public static final int resX = 900;
+    public static final int resY = 900;
 
     Canvas canvas = new Canvas(resX, resY);
 
@@ -37,7 +37,7 @@ public class AppLaunch extends Application {
         stage.setScene(new Scene(new HBox(canvas)));
         stage.show();
         Random ran = new Random();
-        for (int i = 0; i < 15; i++){
+        for (int i = 0; i < 25; i++){
             scene.addBall(new Meatball(ran.nextFloat()*6-3, ran.nextFloat()*6-3, ran.nextFloat()*4-2));
         }
         calc = new AparapiCalc(scene);

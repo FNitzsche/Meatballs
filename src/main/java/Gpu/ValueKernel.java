@@ -48,7 +48,7 @@ public class ValueKernel extends Kernel {
         }
         float steepO = (float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
         float steep = Math.max(0, Math.min(1, 1-steepO));
-        float steepI = Math.max(0, Math.min(1, 1-0.1f*Math.max(steepO, -steepO)));
+        float steepI = Math.max(0, Math.min(1, 1-0.1f*steepO));
         if (v > 0.01){
             values[gid*3] = steepI;
             values[gid*3+1] = steep;
