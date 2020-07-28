@@ -15,7 +15,7 @@ public class Meatball {
         this.x = x;
         this.y = y;
         if (strength != 0) {
-            this.strength = Math.min(1/strength, 2);
+            this.strength = Math.max(-3, Math.min(1/strength, 3));
         } else {
             this.strength = 2;
         }
