@@ -46,9 +46,22 @@ public class ValueKernel extends Kernel {
         }
         float steep = 1-(float)(Math.sqrt(Math.pow(dx, 2f)+Math.pow(dy, 2f)));
         steep = Math.max(0, Math.min(1, steep));
-        values[gid*3] = Math.max(0, Math.min(1, v));
-        values[gid*3+1] = Math.max(0, Math.min(1, -v));
-        values[gid*3+2] = steep;
+        if (v > 0.1){
+            values[gid*3] = 1;
+            values[gid*3+1] = steep;
+            values[gid*3+2] = 1;
+        } else if (v < -0.1){
+            values[gid*3] = steep;
+            values[gid*3+1] = 1;
+            values[gid*3+2] = steep;
+        } else {
+            values[gid*3] = 1;
+            values[gid*3+1] = 1;
+            values[gid*3+2] = 1;
+        }
+        //values[gid*3] = Math.max(0, Math.min(1, v));
+        //values[gid*3+1] = Math.max(0, Math.min(1, -v));
+        //values[gid*3+2] = steep;
     }
 
 }
