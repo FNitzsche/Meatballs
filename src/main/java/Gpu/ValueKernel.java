@@ -68,6 +68,8 @@ public class ValueKernel extends Kernel {
             returnColors(v, dx, dy, gid);
         } else if (mode == 1){
             returnGrey(v, dx, dy, gid);
+        } else if (mode == 2){
+            returnLight(v, dx, dy, gid);
         }
     }
 
@@ -100,6 +102,55 @@ public class ValueKernel extends Kernel {
         values[gid*3] = comb;
         values[gid*3+1] = comb;
         values[gid*3+2] = comb;
+    }
+
+    float[] lightPos = {0, 0, 2};
+    float fokus = 3;
+
+    private void returnLight(float v, float dx, float dy, int gid){
+        int px = gid % resY;
+        int py = gid / resY;
+
+        float mRes = Math.max(resX, resY);
+
+        float x = 6f*(py/mRes) -3*(resX/mRes);
+        float y = 6f*(px/mRes) -3*(resY/mRes);
+
+        float deltaX = lightPos[0]-x;
+        float deltaY = lightPos[1]-y;
+        float deltaZ = lightPos[2]-v;
+
+        float deltaL = (float)Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2) + Math.pow(deltaZ, 2));
+
+        float kx = -dx;
+        float ky = -dy;
+        float kz = 1;
+
+        float kl = (float)Math.sqrt(Math.pow(kx, 2) + Math.pow(ky, 2) + Math.pow(kz, 2));
+
+        v *= vFactor;
+        float skalar = (float)Math.pow((deltaX/deltaL)*(kx/kl) + (ky/kl)*(deltaY/deltaL) + (kz/kl)*(deltaZ/deltaL), fokus);
+
+        skalar *= 10;
+        float limS = Math.min(1, Math.max(0.4f, (skalar)));
+        float limO = Math.min(1, Math.max(0.2f, (skalar*0.1f)));
+        values[gid*3] = limS;
+        values[gid*3+1] = limS;
+        values[gid*3+2] = limS;
+
+        if (v > 0.01){
+            values[gid*3] = limS;
+            values[gid*3+1] = limO;
+            values[gid*3+2] = limS;
+        } else if (v < -0.01){
+            values[gid*3] = limO;
+            values[gid*3+1] =  limS;
+            values[gid*3+2] = limO;
+        } else {
+            values[gid*3] = limS;
+            values[gid*3+1] = limS;
+            values[gid*3+2] = limS;
+        }
     }
 
 }
