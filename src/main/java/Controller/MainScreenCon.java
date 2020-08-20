@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 
@@ -21,10 +22,16 @@ public class MainScreenCon {
     @FXML
     ToggleButton play;
 
+    @FXML
+    ChoiceBox<String> modeBox;
+
 
     public void initialize(){
         comic.setOnAction(t -> mode = true);
         tDim.setOnAction(t -> mode = false);
+        modeBox.getItems().add("Green & Magenta & Reflect");
+        modeBox.getItems().add("GreyV & Reflect");
+        modeBox.getSelectionModel().select(0);
     }
 
     public void setImage(Image img){
@@ -41,6 +48,11 @@ public class MainScreenCon {
 
     public boolean getPlay(){
         return play.isSelected();
+    }
+
+    public int getModeInt(){
+        System.out.println(modeBox.getValue());
+        return modeBox.getSelectionModel().getSelectedIndex();
     }
 
 }
