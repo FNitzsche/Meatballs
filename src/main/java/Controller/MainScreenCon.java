@@ -2,14 +2,12 @@ package Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import main.AppLaunch;
 import scala.App;
+import sun.util.resources.cldr.ext.CurrencyNames_uz;
 
 public class MainScreenCon {
 
@@ -28,11 +26,15 @@ public class MainScreenCon {
     @FXML
     ChoiceBox<String> modeBox;
 
+    @FXML
+    TextField lheight;
+
 
     public void initialize(){
         comic.setOnAction(t -> mode = true);
         tDim.setOnAction(t -> mode = false);
         viewport.setOnMouseClicked(e -> coordinate(e));
+        lheight.setOnAction(t -> xy[2] = Integer.parseInt(lheight.getText()));
         modeBox.getItems().add("Green & Magenta & Reflect");
         modeBox.getItems().add("GreyV & Reflect");
         modeBox.getItems().add("Green & Magenta & Light");
