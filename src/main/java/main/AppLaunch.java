@@ -41,7 +41,7 @@ public class AppLaunch extends Application {
         for (int i = 0; i < 25; i++){
             scene.addBall(new Meatball(ran.nextFloat()*6-3, ran.nextFloat()*6-3, ran.nextFloat()*4-2));
         }
-        calc = new AparapiCalc(scene);
+        calc = new AparapiCalc(scene, mainScreen.getController(MainScreenCon.class));
 
         Runnable run = new Runnable() {
             @Override
