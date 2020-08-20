@@ -61,7 +61,7 @@ public class AparapiCalc {
         for (int i = 0; i < kernel.countB; i++){
             kernel.balls[i*3] = tmp.get(i).getPos()[0];
             kernel.balls[i*3+1] = tmp.get(i).getPos()[1];
-            kernel.balls[i*3+2] = tmp.get(i).getPos()[2];
+            kernel.balls[i*3+2] = 1/tmp.get(i).getPos()[2];
         }
         long s = System.currentTimeMillis();
         //System.out.println("blubb");

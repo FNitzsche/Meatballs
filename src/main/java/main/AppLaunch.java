@@ -118,24 +118,26 @@ public class AppLaunch extends Application {
         return wimg;
     }
 
-    int mSteps = 100;
+    int mSteps = 3000;
     int stepsLeft = 0;
+    long lastTime = System.currentTimeMillis();
 
     void step(){
-        //long s = System.currentTimeMillis();
-        if (stepsLeft > mSteps){
-            stepsLeft = 0;
-            scene.setPosition();
-            scene.randomize();
-        } else {
-            stepsLeft++;
+        long time = System.currentTimeMillis();
+        if (mainScreen.getController(MainScreenCon.class).getPlay()) {
+            if (stepsLeft > mSteps) {
+                stepsLeft = 0;
+                scene.setPosition();
+                scene.randomize();
+            } else {
+                stepsLeft += time - lastTime;
+            }
+            Image img = renderGpu(scene, stepsLeft / (float) mSteps);
+            Platform.runLater(() -> {
+                mainScreen.getController(MainScreenCon.class).setImage(img);
+            });
         }
-        //Image img = render2D(scene, stepsLeft/(float)mSteps);
-        Image img = renderGpu(scene, stepsLeft/(float)mSteps);
-        Platform.runLater(() ->{
-            mainScreen.getController(MainScreenCon.class).setImage(img);
-        });
-        //System.out.println("Time:" + (System.currentTimeMillis()-s));
+        lastTime = time;
     }
 
 
