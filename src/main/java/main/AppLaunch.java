@@ -1,5 +1,6 @@
 package main;
 
+import Controller.MainScreenCon;
 import Gpu.AparapiCalc;
 import Model.MeatScene;
 import Model.Meatball;
@@ -23,10 +24,10 @@ import java.util.stream.Stream;
 
 public class AppLaunch extends Application {
 
-    public static final int resX = 1280;
-    public static final int resY = 720;
+    public static int resX = 1280;
+    public static int resY = 720;
 
-    Canvas canvas = new Canvas(resX, resY);
+    FXMLLoad mainScreen = new FXMLLoad("/mainScreen.fxml", new MainScreenCon());
 
     MeatScene scene = new MeatScene();
 
@@ -34,14 +35,13 @@ public class AppLaunch extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(new HBox(canvas)));
+        stage.setScene(mainScreen.getScene());
         stage.show();
         Random ran = new Random();
         for (int i = 0; i < 25; i++){
             scene.addBall(new Meatball(ran.nextFloat()*6-3, ran.nextFloat()*6-3, ran.nextFloat()*4-2));
         }
         calc = new AparapiCalc(scene);
-        //canvas.getGraphicsContext2D().drawImage(render2D(scene, 0), 0, 0);
 
         Runnable run = new Runnable() {
             @Override
@@ -133,8 +133,7 @@ public class AppLaunch extends Application {
         //Image img = render2D(scene, stepsLeft/(float)mSteps);
         Image img = renderGpu(scene, stepsLeft/(float)mSteps);
         Platform.runLater(() ->{
-            canvas.getGraphicsContext2D().clearRect(0, 0, resX, resY);
-            canvas.getGraphicsContext2D().drawImage(img, 0, 0);
+            mainScreen.getController(MainScreenCon.class).setImage(img);
         });
         //System.out.println("Time:" + (System.currentTimeMillis()-s));
     }

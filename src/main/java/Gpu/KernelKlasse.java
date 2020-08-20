@@ -4,7 +4,7 @@ import Model.MeatScene;
 import com.aparapi.Kernel;
 import main.AppLaunch;
 
-public class kernelKlasse extends Kernel {
+public class KernelKlasse extends Kernel {
     MeatScene scene;
     public final float[] colors;
     public float[] balls;;
@@ -12,7 +12,7 @@ public class kernelKlasse extends Kernel {
     public int resX = AppLaunch.resX;
     public int resY = AppLaunch.resY;
 
-    public kernelKlasse(MeatScene scene) {
+    public KernelKlasse(MeatScene scene) {
         this.scene = scene;
         balls = new float[scene.getMeatballs().size()*3];
         countB = scene.getMeatballs().size();
