@@ -131,9 +131,9 @@ public class ValueKernel extends Kernel {
         v *= vFactor;
         float skalar = (float)Math.pow((deltaX/deltaL)*(kx/kl) + (ky/kl)*(deltaY/deltaL) + (kz/kl)*(deltaZ/deltaL), fokus);
 
-        skalar *= 10;
-        float limS = Math.min(1, Math.max(0.4f, (skalar)));
-        float limO = Math.min(1, Math.max(0.2f, (skalar*0.1f)));
+        skalar *= 10f;
+        float limS = Math.min(1, Math.max(0.3f, (skalar)));
+        float limO = Math.min(1, Math.max(0.1f, (skalar*0.1f)));
         values[gid*3] = limS;
         values[gid*3+1] = limS;
         values[gid*3+2] = limS;

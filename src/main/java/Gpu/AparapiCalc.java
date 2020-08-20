@@ -44,6 +44,7 @@ public class AparapiCalc {
         ArrayList<Meatball> tmp = scene.getMeatballs();
         vKernel.mode = mainScreenCon.getModeInt();
         vKernel.lightPos = mainScreenCon.getCoords();
+        vKernel.vFactor = mainScreenCon.getvFac();
         for (int i = 0; i < vKernel.countB; i++){
             vKernel.balls[i*3] = tmp.get(i).getPos()[0];
             vKernel.balls[i*3+1] = tmp.get(i).getPos()[1];

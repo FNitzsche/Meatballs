@@ -29,12 +29,15 @@ public class MainScreenCon {
     @FXML
     TextField lheight;
 
+    @FXML
+    TextField vFac;
 
     public void initialize(){
         comic.setOnAction(t -> mode = true);
         tDim.setOnAction(t -> mode = false);
         viewport.setOnMouseClicked(e -> coordinate(e));
         lheight.setOnAction(t -> xy[2] = Integer.parseInt(lheight.getText()));
+        vFac.setOnAction(t -> vfactor = Float.parseFloat(vFac.getText()));
         modeBox.getItems().add("Green & Magenta & Reflect");
         modeBox.getItems().add("GreyV & Reflect");
         modeBox.getItems().add("Green & Magenta & Light");
@@ -72,6 +75,12 @@ public class MainScreenCon {
 
     public float[] getCoords(){
         return xy;
+    }
+
+    float vfactor = 1;
+
+    public float getvFac(){
+        return vfactor;
     }
 
 }
