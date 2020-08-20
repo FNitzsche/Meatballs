@@ -29,8 +29,10 @@ public class ValueKernel extends Kernel {
         int px = gid % resY;
         int py = gid / resY;
 
-        float x = 6f*px/resX -3;
-        float y = 6f*py/resY -3;
+        float mRes = Math.max(resX, resY);
+
+        float x = 6f*(py/mRes) -3*(resX/mRes);
+        float y = 6f*(px/mRes) -3*(resY/mRes);
         float v = 0;
         float dx = 0;
         float dy = 0;

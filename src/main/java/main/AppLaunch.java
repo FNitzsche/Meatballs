@@ -23,8 +23,8 @@ import java.util.stream.Stream;
 
 public class AppLaunch extends Application {
 
-    public static final int resX = 900;
-    public static final int resY = 900;
+    public static final int resX = 1000;
+    public static final int resY = 500;
 
     Canvas canvas = new Canvas(resX, resY);
 
@@ -64,7 +64,7 @@ public class AppLaunch extends Application {
         float[] colors = calc.calcColors(scene);
         for(int i = 0; i < resX; i++) {
             for (int j = 0; j < resY; j++) {
-                wimg.getPixelWriter().setColor(i, j, Color.color(colors[(j*resY+i)*3], colors[(j*resY+i)*3+1], colors[(j*resY+i)*3+2]));
+                wimg.getPixelWriter().setColor(i, j, Color.color(colors[(i*resY+j)*3], colors[(i*resY+j)*3+1], colors[(i*resY+j)*3+2]));
             }
         }
         return wimg;
