@@ -105,7 +105,7 @@ public class ValueKernel extends Kernel {
     }
 
     float[] lightPos = {0, 0, 2};
-    float fokus = 3;
+    float fokus = 10;
 
     private void returnLight(float v, float dx, float dy, int gid){
         int px = gid % resY;

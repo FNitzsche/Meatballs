@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import main.AppLaunch;
 import scala.App;
@@ -32,12 +33,17 @@ public class MainScreenCon {
     @FXML
     TextField vFac;
 
+    @FXML
+    TextField lFoc;
+
     public void initialize(){
         comic.setOnAction(t -> mode = true);
         tDim.setOnAction(t -> mode = false);
-        viewport.setOnMouseClicked(e -> coordinate(e));
-        lheight.setOnAction(t -> xy[2] = Integer.parseInt(lheight.getText()));
+        //viewport.setOnMouseClicked(e -> coordinate(e));
+        viewport.setOnMouseDragged(t -> coordinate(t));
+        lheight.setOnAction(t -> xy[2] = Float.parseFloat(lheight.getText()));
         vFac.setOnAction(t -> vfactor = Float.parseFloat(vFac.getText()));
+        lFoc.setOnAction(t -> focus = Float.parseFloat(lFoc.getText()));
         modeBox.getItems().add("Green & Magenta & Reflect");
         modeBox.getItems().add("GreyV & Reflect");
         modeBox.getItems().add("Green & Magenta & Light");
@@ -61,7 +67,7 @@ public class MainScreenCon {
     }
 
     public int getModeInt(){
-        System.out.println(modeBox.getValue());
+        //System.out.println(modeBox.getValue());
         return modeBox.getSelectionModel().getSelectedIndex();
     }
 
@@ -69,8 +75,8 @@ public class MainScreenCon {
 
     private void coordinate(MouseEvent e){
         float mRes = Math.max(AppLaunch.resX, AppLaunch.resY);
-        xy[0]  = 6f*((float)e.getX()/mRes) -3*(AppLaunch.resX/mRes);
-        xy[1] = 6f*((float)e.getY()/mRes) -3*(AppLaunch.resY/mRes);
+        xy[0] = 6f * ((float) e.getX() / mRes) - 3 * (AppLaunch.resX / mRes);
+        xy[1] = 6f * ((float) e.getY() / mRes) - 3 * (AppLaunch.resY / mRes);
     }
 
     public float[] getCoords(){
@@ -81,6 +87,11 @@ public class MainScreenCon {
 
     public float getvFac(){
         return vfactor;
+    }
+
+    float focus = 3;
+    public float getFocus(){
+        return focus;
     }
 
 }
