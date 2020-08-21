@@ -57,8 +57,8 @@ public class ValueKernel extends Kernel {
             factor = 0;
         }
         float v = (float)(Math.pow(distS, 2)-2*distS +1)*factor*strengthSig;
-        float dx = (float)(4 * strengthPos * (balls[i*3] - x) * (-strengthPos *(Math.pow((balls[i*3] - x), 2) +Math.pow(balls[i*3+1] - y, 2) )+ 1))*factor*strengthSig;
-        float dy = (float)(4 * strengthPos *(balls[i*3+1] - y) * (-strengthPos *(Math.pow((balls[i*3+1] - y), 2) +Math.pow(balls[i*3] - x, 2)) + 1))*factor*strengthSig;
+        float dx = (float)(4 * strengthPos * (balls[i*3] - x) * (-strengthPos  *(Math.pow((balls[i*3] - x), 2) +Math.pow(balls[i*3+1] - y, 2) )+ 1))*factor*strengthSig;
+        float dy = (float)(4 * strengthPos *(balls[i*3+1] - y) * (-strengthPos  *(Math.pow((balls[i*3+1] - y), 2) +Math.pow(balls[i*3] - x, 2)) + 1))*factor*strengthSig;
 
         return new float[]{v, dx, dy};
     }
@@ -126,17 +126,20 @@ public class ValueKernel extends Kernel {
         float ky = -dy;
         float kz = 1;
 
+        v *= vFactor;
+        if (v >= -0.01 && v <= 0.01){
+            kx = 0;
+            ky = 0;
+        }
+
         float kl = (float)Math.sqrt(Math.pow(kx, 2) + Math.pow(ky, 2) + Math.pow(kz, 2));
 
-        v *= vFactor;
-        float skalar = (float)Math.pow((deltaX/deltaL)*(kx/kl) + (ky/kl)*(deltaY/deltaL) + (kz/kl)*(deltaZ/deltaL), fokus);
 
-        skalar *= 10f;
-        float limS = Math.min(1, Math.max(0.3f, (skalar)));
-        float limO = Math.min(1, Math.max(0.1f, (skalar*0.1f)));
-        values[gid*3] = limS;
-        values[gid*3+1] = limS;
-        values[gid*3+2] = limS;
+        float skalar = (float)Math.pow((deltaX/deltaL)*(kx/kl) + (ky/kl)*(deltaY/deltaL) + (kz/kl)*(deltaZ/deltaL), fokus);
+        float skalarO = skalar + 0.9f;
+        skalarO *= 5f;
+        float limS = Math.min(1, Math.max(0f, (skalarO)));
+        float limO = Math.min(1, Math.max(0f, (skalar)));
 
         if (v > 0.01){
             values[gid*3] = limS;
@@ -147,9 +150,9 @@ public class ValueKernel extends Kernel {
             values[gid*3+1] =  limS;
             values[gid*3+2] = limO;
         } else {
-            values[gid*3] = limS;
-            values[gid*3+1] = limS;
-            values[gid*3+2] = limS;
+            values[gid*3] = limO;
+            values[gid*3+1] = limO;
+            values[gid*3+2] = limO;
         }
     }
 
