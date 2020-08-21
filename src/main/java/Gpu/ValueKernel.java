@@ -140,15 +140,16 @@ public class ValueKernel extends Kernel {
         skalarO *= 5f;
         float limS = Math.min(1, Math.max(0f, (skalarO)));
         float limO = Math.min(1, Math.max(0f, (skalar)));
+        float depth = Math.min(1, Math.max(0f, (1f+(v/vFactor)*0.4f)));
 
         if (v > 0.01){
-            values[gid*3] = limS;
-            values[gid*3+1] = limO;
-            values[gid*3+2] = limS;
+            values[gid*3] = limS*depth;
+            values[gid*3+1] = limO*depth;
+            values[gid*3+2] = limS*depth;
         } else if (v < -0.01){
-            values[gid*3] = limO;
-            values[gid*3+1] =  limS;
-            values[gid*3+2] = limO;
+            values[gid*3] = limO*depth;
+            values[gid*3+1] =  limS*depth;
+            values[gid*3+2] = limO*depth;
         } else {
             values[gid*3] = limO;
             values[gid*3+1] = limO;
