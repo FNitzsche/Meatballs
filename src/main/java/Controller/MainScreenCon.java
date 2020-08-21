@@ -39,7 +39,7 @@ public class MainScreenCon {
     public void initialize(){
         comic.setOnAction(t -> mode = true);
         tDim.setOnAction(t -> mode = false);
-        //viewport.setOnMouseClicked(e -> coordinate(e));
+        viewport.setOnMouseClicked(e -> coordinate(e));
         viewport.setOnMouseDragged(t -> coordinate(t));
         lheight.setOnAction(t -> xy[2] = Float.parseFloat(lheight.getText()));
         vFac.setOnAction(t -> vfactor = Float.parseFloat(vFac.getText()));
