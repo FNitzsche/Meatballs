@@ -71,7 +71,7 @@ public class AparapiCalc {
         //System.out.println("blubb");
         kernel.execute(Range.create(AppLaunch.resX*AppLaunch.resY));
         //System.out.println("Execution mode = "+ vKernel.getTargetDevice());
-        //System.out.println("RT: " + (System.currentTimeMillis()-s));
+        // System.out.println("RT: " + (System.currentTimeMillis()-s));
 
         return kernel.values;
     }
